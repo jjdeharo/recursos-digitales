@@ -430,6 +430,18 @@
     .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
     .callout-body { flex: 1; }
     .callout-body strong { display: block; margin-bottom: 4px; }
+    .callout--with-logo {
+      position: relative;
+      padding-right: 92px;
+    }
+    .callout-logo {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+    }
     .one-line { white-space: nowrap; }
     .one-line strong { display: inline; margin: 0; }
 
@@ -901,15 +913,13 @@
             <li data-i18n-html="step8_li3">Pulsa <strong>Crear enlace</strong> y comparte el enlace generado con tu alumnado.</li>
           </ol>
 
-          <div class="callout callout--tip">
+          <div class="callout callout--tip callout--with-logo">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"/></svg>
             <div class="callout-body">
               <strong data-i18n="step8_callout_title">Visor Web-ZIP</strong>
-              <span data-i18n-html="step8_callout_body">Más información: <a href="https://educacion.bilateria.org/visor-web-zip-publica-y-comparte-tus-recursos-educativos-desde-tu-almacenamiento-favorito-en-la-nube" target="_blank" rel="noopener">Visor Web-ZIP: Publica y comparte tus recursos educativos desde tu almacenamiento favorito en la nube</a>.</span>
-              <div style="margin-top:10px;">
-                <img src="./visor-webzip-logo.svg" alt="Logo de Visor Web-ZIP" width="64" height="64" loading="lazy">
-              </div>
+              <span data-i18n-html="step8_callout_body">Más información:<ul><li><a href="https://docs.google.com/presentation/d/e/2PACX-1vQBkRlQYppnwQQc7HRwe5KTPZ6GgvRQAsm88Bt-pos7h_wii9nVpATx7ZuD4E96XSZnUPpkGKFuWXn4/pub?start=false&loop=false&delayms=3000" target="_blank" rel="noopener">Publicar y compartir proyectos de eXeLearning con Visor Web-ZIP</a></li><li><a href="https://educacion.bilateria.org/visor-web-zip-publica-y-comparte-tus-recursos-educativos-desde-tu-almacenamiento-favorito-en-la-nube" target="_blank" rel="noopener">Visor Web-ZIP: Publica y comparte tus recursos educativos desde tu almacenamiento favorito en la nube</a></li></ul></span>
             </div>
+            <img class="callout-logo" src="./visor-webzip-logo.svg" alt="Logo de Visor Web-ZIP" width="48" height="48" loading="lazy">
           </div>
         </section>
 
@@ -1045,7 +1055,7 @@
         step8_li2: 'En la zona <strong>② Crear enlace</strong>, pega la URL estable de GitHub (<code class="il"><span id="step8StableUrl">https://github.com/USUARIO/REPO/releases/latest/download/archivo.ext</span></code>).',
         step8_li3: 'Pulsa <strong>Crear enlace</strong> y comparte el enlace generado con tu alumnado.',
         step8_callout_title: 'Visor Web-ZIP',
-        step8_callout_body: 'Más información: <a href="https://educacion.bilateria.org/visor-web-zip-publica-y-comparte-tus-recursos-educativos-desde-tu-almacenamiento-favorito-en-la-nube" target="_blank" rel="noopener">Visor Web-ZIP: Publica y comparte tus recursos educativos desde tu almacenamiento favorito en la nube</a>.',
+        step8_callout_body: 'Más información:<ul><li><a href="https://docs.google.com/presentation/d/e/2PACX-1vQBkRlQYppnwQQc7HRwe5KTPZ6GgvRQAsm88Bt-pos7h_wii9nVpATx7ZuD4E96XSZnUPpkGKFuWXn4/pub?start=false&loop=false&delayms=3000" target="_blank" rel="noopener">Publicar y compartir proyectos de eXeLearning con Visor Web-ZIP</a></li><li><a href="https://educacion.bilateria.org/visor-web-zip-publica-y-comparte-tus-recursos-educativos-desde-tu-almacenamiento-favorito-en-la-nube" target="_blank" rel="noopener">Visor Web-ZIP: Publica y comparte tus recursos educativos desde tu almacenamiento favorito en la nube</a></li></ul>',
         result_title: 'Resultado final',
         result_intro: 'Con este procedimiento se obtiene:',
         result_li1: 'Un repositorio en GitHub que actúa como contenedor de archivos.',
@@ -1163,7 +1173,7 @@
         step8_li2: 'A la zona <strong>② Crear enllaç</strong>, enganxa la URL estable de GitHub (<code class="il"><span id="step8StableUrl">https://github.com/USUARIO/REPO/releases/latest/download/archivo.ext</span></code>).',
         step8_li3: 'Prem <strong>Crear enllaç</strong> i comparteix l’enllaç generat amb l’alumnat.',
         step8_callout_title: 'Visor Web-ZIP',
-        step8_callout_body: 'Més informació: <a href="https://educacion.bilateria.org/visor-web-zip-publica-y-comparte-tus-recursos-educativos-desde-tu-almacenamiento-favorito-en-la-nube" target="_blank" rel="noopener">Visor Web-ZIP: Publica y comparte tus recursos educativos desde tu almacenamiento favorito en la nube</a>.',
+        step8_callout_body: 'Més informació:<ul><li><a href="https://docs.google.com/presentation/d/e/2PACX-1vQBkRlQYppnwQQc7HRwe5KTPZ6GgvRQAsm88Bt-pos7h_wii9nVpATx7ZuD4E96XSZnUPpkGKFuWXn4/pub?start=false&loop=false&delayms=3000" target="_blank" rel="noopener">Publicar y compartir proyectos de eXeLearning con Visor Web-ZIP</a></li><li><a href="https://educacion.bilateria.org/visor-web-zip-publica-y-comparte-tus-recursos-educativos-desde-tu-almacenamiento-favorito-en-la-nube" target="_blank" rel="noopener">Visor Web-ZIP: Publica y comparte tus recursos educativos desde tu almacenamiento favorito en la nube</a></li></ul>',
         result_title: 'Resultat final',
         result_intro: 'Amb aquest procediment s’obté:',
         result_li1: 'Un repositori a GitHub que actua com a contenidor de fitxers.',
@@ -1281,7 +1291,7 @@
         step8_li2: 'In the <strong>② Create link</strong> area, paste the stable GitHub URL (<code class="il"><span id="step8StableUrl">https://github.com/USUARIO/REPO/releases/latest/download/archivo.ext</span></code>).',
         step8_li3: 'Click <strong>Create link</strong> and share the generated link with your students.',
         step8_callout_title: 'Visor Web-ZIP',
-        step8_callout_body: 'More information: <a href="https://educacion.bilateria.org/visor-web-zip-publica-y-comparte-tus-recursos-educativos-desde-tu-almacenamiento-favorito-en-la-nube" target="_blank" rel="noopener">Visor Web-ZIP: Publica y comparte tus recursos educativos desde tu almacenamiento favorito en la nube</a>.',
+        step8_callout_body: 'More information:<ul><li><a href="https://docs.google.com/presentation/d/e/2PACX-1vQBkRlQYppnwQQc7HRwe5KTPZ6GgvRQAsm88Bt-pos7h_wii9nVpATx7ZuD4E96XSZnUPpkGKFuWXn4/pub?start=false&loop=false&delayms=3000" target="_blank" rel="noopener">Publicar y compartir proyectos de eXeLearning con Visor Web-ZIP</a></li><li><a href="https://educacion.bilateria.org/visor-web-zip-publica-y-comparte-tus-recursos-educativos-desde-tu-almacenamiento-favorito-en-la-nube" target="_blank" rel="noopener">Visor Web-ZIP: Publica y comparte tus recursos educativos desde tu almacenamiento favorito en la nube</a></li></ul>',
         result_title: 'Final result',
         result_intro: 'With this procedure you get:',
         result_li1: 'A GitHub repository that acts as a file container.',
