@@ -1,0 +1,1235 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title id="pageTitle">Cómo subir archivos de hasta 2 GB a GitHub y obtener una URL pública estable</title>
+  <meta id="metaDescription" name="description" content="Guía desde cero para subir archivos de hasta 2 GB (ZIP, ELPX o H5P) a GitHub usando releases y obtener una URL directa estable." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #fafbfc;
+      --bg2: #f0f2f5;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text2: #374151;
+      --muted: #6b7280;
+      --border: #e2e5ea;
+      --accent: #0969da;
+      --accent-soft: #dbeafe;
+      --accent-text: #1e40af;
+      --green: #1a7f37;
+      --green-soft: #dafbe1;
+      --green-text: #116329;
+      --orange: #bc4c00;
+      --orange-soft: #fff1e5;
+      --orange-text: #953800;
+      --red: #cf222e;
+      --red-soft: #ffebe9;
+      --red-text: #a40e26;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.07);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,.08);
+      --codebg: #0d1117;
+      --codetext: #c9d1d9;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --max: 1080px;
+      --tocw: 280px;
+      --font: 'DM Sans', system-ui, -apple-system, sans-serif;
+      --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --transition: .2s cubic-bezier(.4,0,.2,1);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0d1117;
+        --bg2: #161b22;
+        --card: #161b22;
+        --text: #e6edf3;
+        --text2: #b1bac4;
+        --muted: #7d8590;
+        --border: #30363d;
+        --accent: #58a6ff;
+        --accent-soft: #0d1d36;
+        --accent-text: #79c0ff;
+        --green: #3fb950;
+        --green-soft: #0d2117;
+        --green-text: #56d364;
+        --orange: #d29922;
+        --orange-soft: #2a1e02;
+        --orange-text: #e3b341;
+        --red: #f85149;
+        --red-soft: #2d0709;
+        --red-text: #ff7b72;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,.2);
+        --shadow-md: 0 4px 16px rgba(0,0,0,.3);
+        --shadow-lg: 0 12px 40px rgba(0,0,0,.4);
+        --codebg: #0d1117;
+        --codetext: #c9d1d9;
+      }
+    }
+
+    [data-theme="dark"] {
+      --bg: #0d1117;
+      --bg2: #161b22;
+      --card: #161b22;
+      --text: #e6edf3;
+      --text2: #b1bac4;
+      --muted: #7d8590;
+      --border: #30363d;
+      --accent: #58a6ff;
+      --accent-soft: #0d1d36;
+      --accent-text: #79c0ff;
+      --green: #3fb950;
+      --green-soft: #0d2117;
+      --green-text: #56d364;
+      --orange: #d29922;
+      --orange-soft: #2a1e02;
+      --orange-text: #e3b341;
+      --red: #f85149;
+      --red-soft: #2d0709;
+      --red-text: #ff7b72;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.2);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.3);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,.4);
+      --codebg: #0d1117;
+      --codetext: #c9d1d9;
+    }
+
+    [data-theme="light"] {
+      --bg: #fafbfc;
+      --bg2: #f0f2f5;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text2: #374151;
+      --muted: #6b7280;
+      --border: #e2e5ea;
+      --accent: #0969da;
+      --accent-soft: #dbeafe;
+      --accent-text: #1e40af;
+      --green: #1a7f37;
+      --green-soft: #dafbe1;
+      --green-text: #116329;
+      --orange: #bc4c00;
+      --orange-soft: #fff1e5;
+      --orange-text: #953800;
+      --red: #cf222e;
+      --red-soft: #ffebe9;
+      --red-text: #a40e26;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.07);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,.08);
+      --codebg: #0d1117;
+      --codetext: #c9d1d9;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { text-decoration: underline; }
+
+    /* ── Header ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(12px) saturate(1.4);
+      -webkit-backdrop-filter: blur(12px) saturate(1.4);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+    }
+
+    .brand { min-width: 0; }
+    .brand h1 {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .btn, .select-wrap select {
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .btn {
+      padding: 7px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .btn:hover { background: var(--bg2); border-color: color-mix(in srgb, var(--border) 80%, var(--text)); }
+    .btn:active { transform: scale(.98); }
+    .btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+    .select-wrap select {
+      padding: 7px 28px 7px 10px;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M4.427 7.427l3.396 3.396a.25.25 0 00.354 0l3.396-3.396A.25.25 0 0011.396 7H4.604a.25.25 0 00-.177.427z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+    }
+    .select-wrap select:hover { background-color: var(--bg2); }
+
+    /* ── Hero ── */
+    .hero {
+      margin: 28px auto;
+      max-width: var(--max);
+      padding: 0 24px;
+    }
+
+    .hero-inner {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      padding: 28px 28px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-inner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--green), var(--accent));
+      background-size: 200% 100%;
+      animation: shimmer 4s ease infinite;
+    }
+    @keyframes shimmer { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+    .hero-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 500;
+      border: 1px solid;
+    }
+    .badge--blue { background: var(--accent-soft); color: var(--accent-text); border-color: color-mix(in srgb, var(--accent) 20%, transparent); }
+    .badge--green { background: var(--green-soft); color: var(--green-text); border-color: color-mix(in srgb, var(--green) 20%, transparent); }
+    .badge--orange { background: var(--orange-soft); color: var(--orange-text); border-color: color-mix(in srgb, var(--orange) 20%, transparent); }
+
+    .badge svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* ── Grid layout ── */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      max-width: var(--max);
+      margin: 0 auto 60px;
+      padding: 0 24px;
+    }
+
+    @media (min-width: 960px) {
+      .grid { grid-template-columns: var(--tocw) 1fr; }
+      .toc-card { position: sticky; top: 76px; max-height: calc(100vh - 90px); overflow-y: auto; }
+    }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+    }
+
+    /* ── TOC ── */
+    .toc-list { padding: 10px 12px; }
+
+    .toc-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: var(--radius-sm);
+      color: var(--text2);
+      font-size: 13.5px;
+      font-weight: 450;
+      transition: all var(--transition);
+      border: 1px solid transparent;
+    }
+    .toc-link:hover {
+      background: var(--bg2);
+      color: var(--text);
+      text-decoration: none;
+    }
+    .toc-link.active {
+      background: var(--accent-soft);
+      color: var(--accent-text);
+      border-color: color-mix(in srgb, var(--accent) 18%, transparent);
+      font-weight: 550;
+    }
+
+    .toc-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--bg2);
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: all var(--transition);
+    }
+    .toc-link.active .toc-num {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .toc-tip {
+      margin: 8px 12px 14px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      background: var(--bg2);
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .toc-tip svg { vertical-align: -2px; margin-right: 4px; width: 14px; height: 14px; }
+
+    /* ── Sections ── */
+    .section {
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section:last-child { border-bottom: none; }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 17px;
+      font-weight: 650;
+      letter-spacing: -0.2px;
+      margin-bottom: 14px;
+    }
+
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      background: var(--accent);
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .step-badge.final {
+      background: var(--green);
+    }
+
+    .section p { margin: 10px 0; color: var(--text2); }
+
+    ol, ul { margin: 10px 0 10px 24px; }
+    li { margin: 6px 0; color: var(--text2); }
+    li strong { color: var(--text); }
+
+    /* ── Callouts ── */
+    .callout {
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      margin: 14px 0;
+      font-size: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
+    .callout-body { flex: 1; }
+    .callout-body strong { display: block; margin-bottom: 4px; }
+
+    .callout--info {
+      background: var(--accent-soft);
+      border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+      color: var(--accent-text);
+    }
+    .callout--warn {
+      background: var(--orange-soft);
+      border: 1px solid color-mix(in srgb, var(--orange) 20%, transparent);
+      color: var(--orange-text);
+    }
+    .callout--danger {
+      background: var(--red-soft);
+      border: 1px solid color-mix(in srgb, var(--red) 20%, transparent);
+      color: var(--red-text);
+    }
+    .callout--tip {
+      background: var(--green-soft);
+      border: 1px solid color-mix(in srgb, var(--green) 20%, transparent);
+      color: var(--green-text);
+    }
+
+    /* ── Code blocks ── */
+    .code-block {
+      background: var(--codebg);
+      border-radius: var(--radius-sm);
+      padding: 16px 18px;
+      margin: 14px 0;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--codetext);
+      overflow-x: auto;
+      border: 1px solid rgba(255,255,255,.06);
+      position: relative;
+    }
+    .code-block .label {
+      display: block;
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #7d8590;
+      margin-bottom: 10px;
+    }
+    .code-block .url-line {
+      color: #79c0ff;
+      word-break: break-all;
+    }
+    .code-block .placeholder {
+      color: #ffa657;
+    }
+
+    code.il {
+      font-family: var(--mono);
+      font-size: 0.9em;
+      padding: 2px 7px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--bg2);
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--border);
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--accent); }
+
+    /* ── Print ── */
+    @media print {
+      header, .toc-card, .controls, footer { display: none !important; }
+      .grid { display: block !important; }
+      .hero-inner::before { display: none; }
+      .section { break-inside: avoid; }
+      body { background: #fff; color: #000; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .wrap { padding: 0 16px; }
+      .hero { padding: 0 16px; }
+      .grid { padding: 0 16px; }
+      .hero-inner { padding: 20px; }
+      .hero-title { font-size: 18px; }
+      .brand h1 { font-size: 14px; }
+      .section { padding: 18px; }
+      .controls .btn-text { display: none; }
+    }
+
+    /* ── Accessibility ── */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══ Header ══ -->
+  <header>
+    <div class="wrap">
+      <div class="topbar">
+        <div class="brand">
+          <h1 data-i18n="brand_title">📦 Subir archivos de hasta 2 GB a GitHub</h1>
+        </div>
+        <div class="controls" aria-label="Controles" data-i18n-attr="aria-label:controls_label">
+          <div class="select-wrap">
+            <label class="sr-only" for="langSelect" data-i18n="lang_label">Idioma</label>
+            <select id="langSelect" title="Idioma" data-i18n-attr="title:lang_label">
+              <option value="es" data-i18n="lang_es">Español</option>
+              <option value="ca" data-i18n="lang_ca">Català</option>
+              <option value="en" data-i18n="lang_en">English</option>
+            </select>
+          </div>
+          <div class="select-wrap">
+            <label class="sr-only" for="themeSelect" data-i18n="theme_label">Tema</label>
+            <select id="themeSelect" title="Tema" data-i18n-attr="title:theme_label">
+              <option value="system" data-i18n="theme_system">⚙️ Sistema</option>
+              <option value="light" data-i18n="theme_light">☀️ Claro</option>
+              <option value="dark" data-i18n="theme_dark">🌙 Oscuro</option>
+            </select>
+          </div>
+          <button class="btn" id="copyLatestBtn" type="button" title="Copiar plantilla de URL" data-i18n-attr="title:copy_title">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"/></svg>
+            <span class="btn-text" data-i18n="copy_btn">Copiar URL</span>
+          </button>
+          <button class="btn" id="printBtn" type="button" title="Imprimir / PDF" data-i18n-attr="title:print_title">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M4.75 1h6.5c.138 0 .25.112.25.25v3.25h3.757c.458 0 .743.503.5.9L13 9.464V14.7a1.3 1.3 0 0 1-1.29 1.3H4.29A1.3 1.3 0 0 1 3 14.7V9.464L.243 5.4a.572.572 0 0 1 .5-.9H4.5V1.25A.25.25 0 0 1 4.75 1ZM4.5 9h7V6H4.5Zm0 1.5v4h7v-4Z"/></svg>
+            <span class="btn-text" data-i18n="print_btn">Imprimir</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ══ Hero ══ -->
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-title" data-i18n="hero_title">Cómo subir archivos de hasta 2 GB a GitHub y obtener una URL pública estable</div>
+        <p class="hero-sub" data-i18n-html="hero_sub">Guía paso a paso para subir archivos ZIP, ELPX o H5P (hasta 2 GB) usando <em>releases</em> de GitHub y obtener una URL directa que no cambia aunque se actualice el archivo.</p>
+
+        <div class="badges">
+          <span class="badge badge--blue" data-i18n="badge_browser">
+            Todo desde el navegador
+          </span>
+          <span class="badge badge--green" data-i18n="badge_size">
+            Hasta 2 GB por archivo
+          </span>
+          <span class="badge badge--orange" data-i18n="badge_url">
+            URL que no cambia al actualizar
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ Grid: TOC + Content ══ -->
+    <div class="grid">
+
+      <!-- Sidebar TOC -->
+      <nav class="card toc-card" aria-label="Índice de contenidos" data-i18n-attr="aria-label:toc_label">
+        <div class="card-header" data-i18n="toc_header">Índice</div>
+        <div class="toc-list">
+          <a href="#crear-repo" class="toc-link"><span class="toc-num">1</span> <span data-i18n="toc_create_repo">Crear el repositorio</span></a>
+          <a href="#repo-vacio" class="toc-link"><span class="toc-num">2</span> <span data-i18n="toc_repo_empty">Si el repositorio está vacío</span></a>
+          <a href="#crear-release" class="toc-link"><span class="toc-num">3</span> <span data-i18n="toc_create_release">Crear una release</span></a>
+          <a href="#subir-archivo" class="toc-link"><span class="toc-num">4</span> <span data-i18n="toc_upload_file">Subir el archivo</span></a>
+          <a href="#url-descarga" class="toc-link"><span class="toc-num">5</span> <span data-i18n="toc_get_url">Obtener la URL directa</span></a>
+          <a href="#no-usar" class="toc-link"><span class="toc-num">6</span> <span data-i18n="toc_what_not">Qué no se debe usar</span></a>
+          <a href="#actualizar" class="toc-link"><span class="toc-num">7</span> <span data-i18n="toc_update_file">Actualizar el archivo</span></a>
+          <a href="#resultado" class="toc-link"><span class="toc-num">✓</span> <span data-i18n="toc_result">Resultado final</span></a>
+        </div>
+        <div class="toc-tip">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+          <span data-i18n="toc_tip">Si se publican muchos recursos, se puede poner cada uno en una release diferente dentro del mismo repositorio.</span>
+        </div>
+      </nav>
+
+      <!-- Main content -->
+      <article class="card" aria-label="Manual paso a paso" data-i18n-attr="aria-label:article_label">
+
+        <!-- Step 1 -->
+        <section id="crear-repo" class="section">
+          <h3 class="section-title"><span class="step-badge">1</span> <span data-i18n="step1_title">Crear el repositorio</span></h3>
+          <ol>
+            <li data-i18n-html="step1_li1">Entrar en <a href="https://github.com" target="_blank" rel="noopener">github.com</a> (crear una cuenta si no se tiene).</li>
+            <li data-i18n-html="step1_li2">Pulsar el botón <strong>+</strong> de la esquina superior derecha y seleccionar <strong>New repository</strong>.</li>
+            <li data-i18n-html="step1_li3">Escribir un nombre descriptivo (por ejemplo: <code class="il">recursos-educativos</code>).</li>
+            <li data-i18n-html="step1_li4">Marcar el repositorio como <strong>Public</strong> para que cualquiera pueda descargar los archivos.</li>
+            <li data-i18n-html="step1_li5">Activar la casilla <strong>Add a README file</strong>.</li>
+            <li data-i18n-html="step1_li6">Pulsar <strong>Create repository</strong>.</li>
+          </ol>
+
+          <div class="callout callout--info">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+            <div class="callout-body">
+              <strong data-i18n="step1_callout_title">¿Por qué es necesario el README?</strong>
+              <span data-i18n-html="step1_callout_body">GitHub necesita al menos un archivo (un <em>commit</em> inicial) para poder crear releases. El README cumple esa función.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 2 -->
+        <section id="repo-vacio" class="section">
+          <h3 class="section-title"><span class="step-badge">2</span> <span data-i18n="step2_title">Si el repositorio está vacío</span></h3>
+          <p data-i18n="step2_intro">Si se olvidó activar «Add a README file» y el repositorio aparece vacío:</p>
+          <ol>
+            <li data-i18n-html="step2_li1">Hacer clic en el enlace <strong>creating a new file</strong> que muestra GitHub.</li>
+            <li data-i18n-html="step2_li2">Escribir como nombre del archivo: <code class="il">README.md</code>.</li>
+            <li data-i18n-html="step2_li3">Añadir un texto sencillo, por ejemplo: <em>Repositorio para almacenar archivos grandes</em>.</li>
+            <li data-i18n-html="step2_li4">Pulsar <strong>Commit changes...</strong> y confirmar.</li>
+          </ol>
+          <p data-i18n="step2_outro">Ahora el repositorio ya tiene contenido y se pueden crear releases.</p>
+        </section>
+
+        <!-- Step 3 -->
+        <section id="crear-release" class="section">
+          <h3 class="section-title"><span class="step-badge">3</span> <span data-i18n="step3_title">Crear una release</span></h3>
+          <ol>
+            <li data-i18n-html="step3_li1">Dentro del repositorio, hacer clic en <strong>Releases</strong> (en la barra lateral derecha).<br>
+              <span style="color:var(--muted);font-size:13px;">Si no aparece, añadir <code class="il">/releases</code> al final de la URL del repositorio.</span>
+            </li>
+            <li data-i18n-html="step3_li2">Pulsar <strong>Draft a new release</strong>.</li>
+            <li data-i18n-html="step3_li3">En <strong>Choose a tag</strong>, escribir una etiqueta de versión, por ejemplo: <code class="il">v1.0</code>. Seleccionar <strong>Create new tag</strong> cuando aparezca.</li>
+            <li data-i18n-html="step3_li4">En <strong>Release title</strong> poner el título del recurso.<br>
+              <span style="color:var(--muted);font-size:13px;">Ejemplo: «Proyecto biodiversidad 4º ESO».</span>
+            </li>
+          </ol>
+
+          <div class="callout callout--tip">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"/></svg>
+            <div class="callout-body">
+              <strong data-i18n="step3_callout_title">Varios recursos en un mismo repositorio</strong>
+              <span data-i18n-html="step3_callout_body">Se pueden guardar recursos diferentes dentro del mismo repositorio, cada uno en su propia release con su etiqueta, título y descripción.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 4 -->
+        <section id="subir-archivo" class="section">
+          <h3 class="section-title"><span class="step-badge">4</span> <span data-i18n="step4_title">Subir el archivo (ZIP, ELPX o H5P)</span></h3>
+          <ol>
+            <li data-i18n-html="step4_li1">En la zona inferior de la release, localizar el área <strong>Attach binaries by dropping them here or selecting them</strong>.</li>
+            <li data-i18n-html="step4_li2">Arrastrar el archivo (ZIP, ELPX o H5P) sobre esa zona, o hacer clic para seleccionarlo.</li>
+            <li data-i18n-html="step4_li3">Esperar a que termine la subida (puede tardar con archivos grandes).</li>
+            <li data-i18n-html="step4_li4">Pulsar <strong>Publish release</strong>.</li>
+          </ol>
+
+          <div class="callout callout--warn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>
+            <div class="callout-body">
+              <strong data-i18n="step4_callout_title">Límite de tamaño</strong>
+              <span data-i18n-html="step4_callout_body">GitHub permite hasta <strong>2 GB por archivo</strong> en una release. Para archivos mayores habría que dividirlos.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 5 -->
+        <section id="url-descarga" class="section">
+          <h3 class="section-title"><span class="step-badge">5</span> <span data-i18n="step5_title">Obtener la URL directa de descarga</span></h3>
+          <p data-i18n-html="step5_intro">Una vez publicada la release, en la sección <strong>Assets</strong> aparecerá el archivo subido. Hay dos formas de obtener la URL:</p>
+
+          <p data-i18n-html="step5_option_a"><strong>Opción A: copiar el enlace directo</strong></p>
+          <ol>
+            <li data-i18n-html="step5_li1">Hacer clic derecho sobre el nombre del archivo en Assets.</li>
+            <li data-i18n-html="step5_li2">Seleccionar «Copiar dirección del enlace».</li>
+          </ol>
+
+          <p data-i18n-html="step5_option_b"><strong>Opción B: usar la URL estable con <code class="il">/latest/</code></strong> (recomendado)</p>
+          <div class="code-block" role="region" aria-label="Formato URL estable" data-i18n-attr="aria-label:step5_code_aria">
+            <span class="label" data-i18n="step5_code_label">Formato de la URL (sustituir las partes en naranja)</span>
+            <span class="url-line">https://github.com/<span class="placeholder">USUARIO</span>/<span class="placeholder">REPO</span>/releases/latest/download/<span class="placeholder">archivo.ext</span></span>
+          </div>
+
+          <div class="callout callout--tip">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"/></svg>
+            <div class="callout-body">
+              <strong data-i18n="step5_callout_tip_title">Ventaja de la URL con /latest/</strong>
+              <span data-i18n-html="step5_callout_tip_body">Siempre apunta a la versión más reciente. No es necesario cambiar la URL cuando se publique una nueva versión del archivo.</span>
+            </div>
+          </div>
+
+          <div class="callout callout--warn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>
+            <div class="callout-body">
+              <strong data-i18n="step5_callout_warn_title">El nombre del archivo importa</strong>
+              <span data-i18n-html="step5_callout_warn_body">Para que la URL con <code class="il">/latest/</code> funcione correctamente, el archivo debe llamarse igual en cada nueva release. Si en la versión 1.0 se subió <code class="il">recurso.elpx</code>, en la 1.1 también debe llamarse <code class="il">recurso.elpx</code>.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 6 -->
+        <section id="no-usar" class="section">
+          <h3 class="section-title"><span class="step-badge">6</span> <span data-i18n="step6_title">Qué no se debe usar</span></h3>
+          <p data-i18n-html="step6_intro">En cada release aparecen automáticamente dos archivos que <strong>no</strong> son el recurso subido:</p>
+
+          <div class="callout callout--danger">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+            <div class="callout-body">
+              <strong data-i18n="step6_callout_title">No usar estos archivos</strong>
+              <span data-i18n-html="step6_callout_body"><em>Source code (zip)</em> y <em>Source code (tar.gz)</em> contienen el código fuente del repositorio, no el archivo que se ha subido. Se deben ignorar.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step 7 -->
+        <section id="actualizar" class="section">
+          <h3 class="section-title"><span class="step-badge">7</span> <span data-i18n="step7_title">Actualizar el archivo en el futuro</span></h3>
+          <p data-i18n="step7_intro">Para subir una versión nueva del recurso:</p>
+          <ol>
+            <li data-i18n-html="step7_li1">Ir a <strong>Releases</strong> en el repositorio.</li>
+            <li data-i18n-html="step7_li2">Pulsar <strong>Draft a new release</strong>.</li>
+            <li data-i18n-html="step7_li3">Crear una nueva etiqueta, por ejemplo: <code class="il">v1.1</code>.</li>
+            <li data-i18n-html="step7_li4">Subir el nuevo archivo <strong>con el mismo nombre</strong> que el anterior.</li>
+            <li data-i18n-html="step7_li5">Pulsar <strong>Publish release</strong>.</li>
+          </ol>
+
+          <div class="callout callout--info">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
+            <div class="callout-body">
+              <strong data-i18n="step7_callout_title">La URL no cambia</strong>
+              <span data-i18n-html="step7_callout_body">Si se usa el enlace con <code class="il">/latest/</code>, la URL seguirá siendo válida y apuntará automáticamente a la última versión publicada.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Result -->
+        <section id="resultado" class="section">
+          <h3 class="section-title"><span class="step-badge final">✓</span> <span data-i18n="result_title">Resultado final</span></h3>
+          <p data-i18n="result_intro">Con este procedimiento se obtiene:</p>
+          <ul>
+            <li data-i18n-html="result_li1">Un repositorio en GitHub que actúa como contenedor de archivos.</li>
+            <li data-i18n-html="result_li2">Un sistema de alojamiento para archivos grandes (hasta 2 GB por archivo).</li>
+            <li data-i18n-html="result_li3">Una URL pública, directa y estable que siempre apunta a la última versión.</li>
+            <li data-i18n-html="result_li4">Un historial de versiones con las releases anteriores siempre accesibles.</li>
+          </ul>
+          <p style="color:var(--muted);margin-top:12px;" data-i18n="result_outro">Todo el proceso se realiza desde el navegador, sin necesidad de instalar programas ni usar la terminal.</p>
+        </section>
+
+      </article>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <a href="https://labia.tiddlyhost.com" target="_blank" rel="noopener" data-i18n="footer_lab">Laboratorio de aplicaciones educativas</a> · 
+      <a href="https://bilateria.org" target="_blank" rel="noopener" data-i18n="footer_app">Aplicación hecha por Juan José de Haro</a> · 
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener" data-i18n="footer_license">Licencia Creative Commons BY-SA</a>
+    </footer>
+  </main>
+
+  <script>
+    const I18N = {
+      es: {
+        meta_title: 'Cómo subir archivos de hasta 2 GB a GitHub y obtener una URL pública estable',
+        meta_description: 'Guía desde cero para subir archivos de hasta 2 GB (ZIP, ELPX o H5P) a GitHub usando releases y obtener una URL directa estable.',
+        brand_title: '📦 Subir archivos de hasta 2 GB a GitHub',
+        controls_label: 'Controles',
+        lang_label: 'Idioma',
+        lang_es: 'Español',
+        lang_ca: 'Català',
+        lang_en: 'English',
+        theme_label: 'Tema',
+        theme_system: '⚙️ Sistema',
+        theme_light: '☀️ Claro',
+        theme_dark: '🌙 Oscuro',
+        copy_title: 'Copiar plantilla de URL',
+        copy_btn: 'Copiar URL',
+        copy_done: '¡Copiada!',
+        copy_prompt: 'Copia esta URL:',
+        print_title: 'Imprimir / PDF',
+        print_btn: 'Imprimir',
+        hero_title: 'Cómo subir archivos de hasta 2 GB a GitHub y obtener una URL pública estable',
+        hero_sub: 'Guía paso a paso para subir archivos ZIP, ELPX o H5P (hasta 2 GB) usando <em>releases</em> de GitHub y obtener una URL directa que no cambia aunque se actualice el archivo.',
+        badge_browser: 'Todo desde el navegador',
+        badge_size: 'Hasta 2 GB por archivo',
+        badge_url: 'URL que no cambia al actualizar',
+        toc_label: 'Índice de contenidos',
+        toc_header: 'Índice',
+        toc_create_repo: 'Crear el repositorio',
+        toc_repo_empty: 'Si el repositorio está vacío',
+        toc_create_release: 'Crear una release',
+        toc_upload_file: 'Subir el archivo',
+        toc_get_url: 'Obtener la URL directa',
+        toc_what_not: 'Qué no se debe usar',
+        toc_update_file: 'Actualizar el archivo',
+        toc_result: 'Resultado final',
+        toc_tip: 'Si se publican muchos recursos, se puede poner cada uno en una release diferente dentro del mismo repositorio.',
+        article_label: 'Manual paso a paso',
+        step1_title: 'Crear el repositorio',
+        step1_li1: 'Entrar en <a href="https://github.com" target="_blank" rel="noopener">github.com</a> (crear una cuenta si no se tiene).',
+        step1_li2: 'Pulsar el botón <strong>+</strong> de la esquina superior derecha y seleccionar <strong>New repository</strong>.',
+        step1_li3: 'Escribir un nombre descriptivo (por ejemplo: <code class="il">recursos-educativos</code>).',
+        step1_li4: 'Marcar el repositorio como <strong>Public</strong> para que cualquiera pueda descargar los archivos.',
+        step1_li5: 'Activar la casilla <strong>Add a README file</strong>.',
+        step1_li6: 'Pulsar <strong>Create repository</strong>.',
+        step1_callout_title: '¿Por qué es necesario el README?',
+        step1_callout_body: 'GitHub necesita al menos un archivo (un <em>commit</em> inicial) para poder crear releases. El README cumple esa función.',
+        step2_title: 'Si el repositorio está vacío',
+        step2_intro: 'Si se olvidó activar «Add a README file» y el repositorio aparece vacío:',
+        step2_li1: 'Hacer clic en el enlace <strong>creating a new file</strong> que muestra GitHub.',
+        step2_li2: 'Escribir como nombre del archivo: <code class="il">README.md</code>.',
+        step2_li3: 'Añadir un texto sencillo, por ejemplo: <em>Repositorio para almacenar archivos grandes</em>.',
+        step2_li4: 'Pulsar <strong>Commit changes...</strong> y confirmar.',
+        step2_outro: 'Ahora el repositorio ya tiene contenido y se pueden crear releases.',
+        step3_title: 'Crear una release',
+        step3_li1: 'Dentro del repositorio, hacer clic en <strong>Releases</strong> (en la barra lateral derecha).<br><span style="color:var(--muted);font-size:13px;">Si no aparece, añadir <code class="il">/releases</code> al final de la URL del repositorio.</span>',
+        step3_li2: 'Pulsar <strong>Draft a new release</strong>.',
+        step3_li3: 'En <strong>Choose a tag</strong>, escribir una etiqueta de versión, por ejemplo: <code class="il">v1.0</code>. Seleccionar <strong>Create new tag</strong> cuando aparezca.',
+        step3_li4: 'En <strong>Release title</strong> poner el título del recurso.<br><span style="color:var(--muted);font-size:13px;">Ejemplo: «Proyecto biodiversidad 4º ESO».</span>',
+        step3_callout_title: 'Varios recursos en un mismo repositorio',
+        step3_callout_body: 'Se pueden guardar recursos diferentes dentro del mismo repositorio, cada uno en su propia release con su etiqueta, título y descripción.',
+        step4_title: 'Subir el archivo (ZIP, ELPX o H5P)',
+        step4_li1: 'En la zona inferior de la release, localizar el área <strong>Attach binaries by dropping them here or selecting them</strong>.',
+        step4_li2: 'Arrastrar el archivo (ZIP, ELPX o H5P) sobre esa zona, o hacer clic para seleccionarlo.',
+        step4_li3: 'Esperar a que termine la subida (puede tardar con archivos grandes).',
+        step4_li4: 'Pulsar <strong>Publish release</strong>.',
+        step4_callout_title: 'Límite de tamaño',
+        step4_callout_body: 'GitHub permite hasta <strong>2 GB por archivo</strong> en una release. Para archivos mayores habría que dividirlos.',
+        step5_title: 'Obtener la URL directa de descarga',
+        step5_intro: 'Una vez publicada la release, en la sección <strong>Assets</strong> aparecerá el archivo subido. Hay dos formas de obtener la URL:',
+        step5_option_a: '<strong>Opción A: copiar el enlace directo</strong>',
+        step5_li1: 'Hacer clic derecho sobre el nombre del archivo en Assets.',
+        step5_li2: 'Seleccionar «Copiar dirección del enlace».',
+        step5_option_b: '<strong>Opción B: usar la URL estable con <code class="il">/latest/</code></strong> (recomendado)',
+        step5_code_aria: 'Formato URL estable',
+        step5_code_label: 'Formato de la URL (sustituir las partes en naranja)',
+        step5_callout_tip_title: 'Ventaja de la URL con /latest/',
+        step5_callout_tip_body: 'Siempre apunta a la versión más reciente. No es necesario cambiar la URL cuando se publique una nueva versión del archivo.',
+        step5_callout_warn_title: 'El nombre del archivo importa',
+        step5_callout_warn_body: 'Para que la URL con <code class="il">/latest/</code> funcione correctamente, el archivo debe llamarse igual en cada nueva release. Si en la versión 1.0 se subió <code class="il">recurso.elpx</code>, en la 1.1 también debe llamarse <code class="il">recurso.elpx</code>.',
+        step6_title: 'Qué no se debe usar',
+        step6_intro: 'En cada release aparecen automáticamente dos archivos que <strong>no</strong> son el recurso subido:',
+        step6_callout_title: 'No usar estos archivos',
+        step6_callout_body: '<em>Source code (zip)</em> y <em>Source code (tar.gz)</em> contienen el código fuente del repositorio, no el archivo que se ha subido. Se deben ignorar.',
+        step7_title: 'Actualizar el archivo en el futuro',
+        step7_intro: 'Para subir una versión nueva del recurso:',
+        step7_li1: 'Ir a <strong>Releases</strong> en el repositorio.',
+        step7_li2: 'Pulsar <strong>Draft a new release</strong>.',
+        step7_li3: 'Crear una nueva etiqueta, por ejemplo: <code class="il">v1.1</code>.',
+        step7_li4: 'Subir el nuevo archivo <strong>con el mismo nombre</strong> que el anterior.',
+        step7_li5: 'Pulsar <strong>Publish release</strong>.',
+        step7_callout_title: 'La URL no cambia',
+        step7_callout_body: 'Si se usa el enlace con <code class="il">/latest/</code>, la URL seguirá siendo válida y apuntará automáticamente a la última versión publicada.',
+        result_title: 'Resultado final',
+        result_intro: 'Con este procedimiento se obtiene:',
+        result_li1: 'Un repositorio en GitHub que actúa como contenedor de archivos.',
+        result_li2: 'Un sistema de alojamiento para archivos grandes (hasta 2 GB por archivo).',
+        result_li3: 'Una URL pública, directa y estable que siempre apunta a la última versión.',
+        result_li4: 'Un historial de versiones con las releases anteriores siempre accesibles.',
+        result_outro: 'Todo el proceso se realiza desde el navegador, sin necesidad de instalar programas ni usar la terminal.',
+        footer_lab: 'Laboratorio de aplicaciones educativas',
+        footer_app: 'Aplicación hecha por Juan José de Haro',
+        footer_license: 'Licencia Creative Commons BY-SA'
+      },
+      ca: {
+        meta_title: 'Com pujar fitxers de fins a 2 GB a GitHub i obtenir una URL pública estable',
+        meta_description: 'Guia des de zero per pujar fitxers de fins a 2 GB (ZIP, ELPX o H5P) a GitHub fent servir releases i obtenir una URL directa estable.',
+        brand_title: '📦 Pujar fitxers de fins a 2 GB a GitHub',
+        controls_label: 'Controls',
+        lang_label: 'Idioma',
+        lang_es: 'Español',
+        lang_ca: 'Català',
+        lang_en: 'English',
+        theme_label: 'Tema',
+        theme_system: '⚙️ Sistema',
+        theme_light: '☀️ Clar',
+        theme_dark: '🌙 Fosc',
+        copy_title: "Copiar plantilla d'URL",
+        copy_btn: 'Copiar URL',
+        copy_done: 'Copiada!',
+        copy_prompt: 'Copia aquesta URL:',
+        print_title: 'Imprimir / PDF',
+        print_btn: 'Imprimir',
+        hero_title: 'Com pujar fitxers de fins a 2 GB a GitHub i obtenir una URL pública estable',
+        hero_sub: 'Guia pas a pas per pujar fitxers ZIP, ELPX o H5P (fins a 2 GB) fent servir <em>releases</em> de GitHub i obtenir una URL directa que no canvia encara que s’actualitzi el fitxer.',
+        badge_browser: 'Tot des del navegador',
+        badge_size: 'Fins a 2 GB per fitxer',
+        badge_url: 'URL que no canvia en actualitzar',
+        toc_label: 'Índex de continguts',
+        toc_header: 'Índex',
+        toc_create_repo: 'Crear el repositori',
+        toc_repo_empty: 'Si el repositori és buit',
+        toc_create_release: 'Crear una release',
+        toc_upload_file: 'Pujar el fitxer',
+        toc_get_url: 'Obtenir la URL directa',
+        toc_what_not: "Què no s'ha d'usar",
+        toc_update_file: 'Actualitzar el fitxer',
+        toc_result: 'Resultat final',
+        toc_tip: 'Si es publiquen molts recursos, es pot posar cadascun en una release diferent dins del mateix repositori.',
+        article_label: 'Manual pas a pas',
+        step1_title: 'Crear el repositori',
+        step1_li1: 'Entrar a <a href="https://github.com" target="_blank" rel="noopener">github.com</a> (crear un compte si no se’n té).',
+        step1_li2: 'Prémer el botó <strong>+</strong> de la cantonada superior dreta i seleccionar <strong>New repository</strong>.',
+        step1_li3: 'Escriure un nom descriptiu (per exemple: <code class="il">recursos-educatius</code>).',
+        step1_li4: 'Marcar el repositori com a <strong>Public</strong> perquè qualsevol pugui descarregar els fitxers.',
+        step1_li5: 'Activar la casella <strong>Add a README file</strong>.',
+        step1_li6: 'Prémer <strong>Create repository</strong>.',
+        step1_callout_title: 'Per què és necessari el README?',
+        step1_callout_body: 'GitHub necessita almenys un fitxer (un <em>commit</em> inicial) per poder crear releases. El README compleix aquesta funció.',
+        step2_title: 'Si el repositori és buit',
+        step2_intro: 'Si es va oblidar activar «Add a README file» i el repositori apareix buit:',
+        step2_li1: 'Fer clic a l’enllaç <strong>creating a new file</strong> que mostra GitHub.',
+        step2_li2: 'Escriure com a nom del fitxer: <code class="il">README.md</code>.',
+        step2_li3: 'Afegir un text senzill, per exemple: <em>Repositori per emmagatzemar fitxers grans</em>.',
+        step2_li4: 'Prémer <strong>Commit changes...</strong> i confirmar.',
+        step2_outro: 'Ara el repositori ja té contingut i es poden crear releases.',
+        step3_title: 'Crear una release',
+        step3_li1: 'Dins del repositori, fer clic a <strong>Releases</strong> (a la barra lateral dreta).<br><span style="color:var(--muted);font-size:13px;">Si no apareix, afegir <code class="il">/releases</code> al final de la URL del repositori.</span>',
+        step3_li2: 'Prémer <strong>Draft a new release</strong>.',
+        step3_li3: 'A <strong>Choose a tag</strong>, escriure una etiqueta de versió, per exemple: <code class="il">v1.0</code>. Seleccionar <strong>Create new tag</strong> quan aparegui.',
+        step3_li4: 'A <strong>Release title</strong> posar el títol del recurs.<br><span style="color:var(--muted);font-size:13px;">Exemple: «Projecte biodiversitat 4t d’ESO».</span>',
+        step3_callout_title: 'Diversos recursos en un mateix repositori',
+        step3_callout_body: 'Es poden desar recursos diferents dins del mateix repositori, cadascun en la seva pròpia release amb la seva etiqueta, títol i descripció.',
+        step4_title: 'Pujar el fitxer (ZIP, ELPX o H5P)',
+        step4_li1: 'A la zona inferior de la release, localitzar l’àrea <strong>Attach binaries by dropping them here or selecting them</strong>.',
+        step4_li2: 'Arrossegar el fitxer (ZIP, ELPX o H5P) sobre aquesta zona, o fer clic per seleccionar-lo.',
+        step4_li3: 'Esperar que acabi la pujada (pot trigar amb fitxers grans).',
+        step4_li4: 'Prémer <strong>Publish release</strong>.',
+        step4_callout_title: 'Límit de mida',
+        step4_callout_body: 'GitHub permet fins a <strong>2 GB per fitxer</strong> en una release. Per a fitxers més grans caldria dividir-los.',
+        step5_title: 'Obtenir la URL directa de descàrrega',
+        step5_intro: 'Un cop publicada la release, a la secció <strong>Assets</strong> apareixerà el fitxer pujat. Hi ha dues formes d’obtenir la URL:',
+        step5_option_a: '<strong>Opció A: copiar l’enllaç directe</strong>',
+        step5_li1: 'Fer clic dret sobre el nom del fitxer a Assets.',
+        step5_li2: 'Seleccionar «Copiar l’adreça de l’enllaç».',
+        step5_option_b: '<strong>Opció B: usar la URL estable amb <code class="il">/latest/</code></strong> (recomanat)',
+        step5_code_aria: 'Format d’URL estable',
+        step5_code_label: 'Format de la URL (substitueix les parts en taronja)',
+        step5_callout_tip_title: 'Avantatge de la URL amb /latest/',
+        step5_callout_tip_body: 'Sempre apunta a la versió més recent. No cal canviar la URL quan es publiqui una nova versió del fitxer.',
+        step5_callout_warn_title: 'El nom del fitxer importa',
+        step5_callout_warn_body: 'Perquè la URL amb <code class="il">/latest/</code> funcioni correctament, el fitxer ha de dir-se igual a cada nova release. Si a la versió 1.0 es va pujar <code class="il">recurso.elpx</code>, a la 1.1 també s’ha d’anomenar <code class="il">recurso.elpx</code>.',
+        step6_title: "Què no s'ha d'usar",
+        step6_intro: 'A cada release apareixen automàticament dos fitxers que <strong>no</strong> són el recurs pujat:',
+        step6_callout_title: 'No utilitzar aquests fitxers',
+        step6_callout_body: '<em>Source code (zip)</em> i <em>Source code (tar.gz)</em> contenen el codi font del repositori, no el fitxer que s’ha pujat. S’han d’ignorar.',
+        step7_title: 'Actualitzar el fitxer en el futur',
+        step7_intro: 'Per pujar una versió nova del recurs:',
+        step7_li1: 'Anar a <strong>Releases</strong> al repositori.',
+        step7_li2: 'Prémer <strong>Draft a new release</strong>.',
+        step7_li3: 'Crear una nova etiqueta, per exemple: <code class="il">v1.1</code>.',
+        step7_li4: 'Pujar el nou fitxer <strong>amb el mateix nom</strong> que l’anterior.',
+        step7_li5: 'Prémer <strong>Publish release</strong>.',
+        step7_callout_title: 'La URL no canvia',
+        step7_callout_body: 'Si s’utilitza l’enllaç amb <code class="il">/latest/</code>, la URL continuarà sent vàlida i apuntarà automàticament a l’última versió publicada.',
+        result_title: 'Resultat final',
+        result_intro: 'Amb aquest procediment s’obté:',
+        result_li1: 'Un repositori a GitHub que actua com a contenidor de fitxers.',
+        result_li2: 'Un sistema d’allotjament per a fitxers grans (fins a 2 GB per fitxer).',
+        result_li3: 'Una URL pública, directa i estable que sempre apunta a l’última versió.',
+        result_li4: 'Un historial de versions amb les releases anteriors sempre accessibles.',
+        result_outro: 'Tot el procés es fa des del navegador, sense necessitat d’instal·lar programes ni usar la terminal.',
+        footer_lab: 'Laboratori d’aplicacions educatives',
+        footer_app: 'Aplicació feta per Juan José de Haro',
+        footer_license: 'Llicència Creative Commons BY-SA'
+      },
+      en: {
+        meta_title: 'How to upload files up to 2 GB to GitHub and get a stable public URL',
+        meta_description: 'Step-by-step guide to upload files up to 2 GB (ZIP, ELPX or H5P) to GitHub using releases and get a stable direct URL.',
+        brand_title: '📦 Upload files up to 2 GB to GitHub',
+        controls_label: 'Controls',
+        lang_label: 'Language',
+        lang_es: 'Spanish',
+        lang_ca: 'Catalan',
+        lang_en: 'English',
+        theme_label: 'Theme',
+        theme_system: '⚙️ System',
+        theme_light: '☀️ Light',
+        theme_dark: '🌙 Dark',
+        copy_title: 'Copy URL template',
+        copy_btn: 'Copy URL',
+        copy_done: 'Copied!',
+        copy_prompt: 'Copy this URL:',
+        print_title: 'Print / PDF',
+        print_btn: 'Print',
+        hero_title: 'How to upload files up to 2 GB to GitHub and get a stable public URL',
+        hero_sub: 'Step-by-step guide to upload ZIP, ELPX or H5P files (up to 2 GB) using GitHub <em>releases</em> and get a direct URL that does not change even if the file is updated.',
+        badge_browser: 'All from the browser',
+        badge_size: 'Up to 2 GB per file',
+        badge_url: 'URL that does not change when updating',
+        toc_label: 'Table of contents',
+        toc_header: 'Contents',
+        toc_create_repo: 'Create the repository',
+        toc_repo_empty: 'If the repository is empty',
+        toc_create_release: 'Create a release',
+        toc_upload_file: 'Upload the file',
+        toc_get_url: 'Get the direct URL',
+        toc_what_not: 'What not to use',
+        toc_update_file: 'Update the file',
+        toc_result: 'Final result',
+        toc_tip: 'If many resources are published, each one can go in a different release within the same repository.',
+        article_label: 'Step-by-step guide',
+        step1_title: 'Create the repository',
+        step1_li1: 'Go to <a href="https://github.com" target="_blank" rel="noopener">github.com</a> (create an account if you don’t have one).',
+        step1_li2: 'Click the <strong>+</strong> button in the top-right corner and select <strong>New repository</strong>.',
+        step1_li3: 'Enter a descriptive name (e.g., <code class="il">educational-resources</code>).',
+        step1_li4: 'Set the repository to <strong>Public</strong> so anyone can download the files.',
+        step1_li5: 'Check <strong>Add a README file</strong>.',
+        step1_li6: 'Click <strong>Create repository</strong>.',
+        step1_callout_title: 'Why is the README necessary?',
+        step1_callout_body: 'GitHub needs at least one file (an initial <em>commit</em>) to create releases. The README fulfills that role.',
+        step2_title: 'If the repository is empty',
+        step2_intro: 'If you forgot to enable “Add a README file” and the repository appears empty:',
+        step2_li1: 'Click the <strong>creating a new file</strong> link shown by GitHub.',
+        step2_li2: 'Set the file name to <code class="il">README.md</code>.',
+        step2_li3: 'Add a simple text, for example: <em>Repository to store large files</em>.',
+        step2_li4: 'Click <strong>Commit changes...</strong> and confirm.',
+        step2_outro: 'Now the repository has content and releases can be created.',
+        step3_title: 'Create a release',
+        step3_li1: 'Inside the repository, click <strong>Releases</strong> (on the right sidebar).<br><span style="color:var(--muted);font-size:13px;">If it does not appear, add <code class="il">/releases</code> at the end of the repository URL.</span>',
+        step3_li2: 'Click <strong>Draft a new release</strong>.',
+        step3_li3: 'In <strong>Choose a tag</strong>, type a version tag, e.g., <code class="il">v1.0</code>. Select <strong>Create new tag</strong> when it appears.',
+        step3_li4: 'In <strong>Release title</strong> enter the resource title.<br><span style="color:var(--muted);font-size:13px;">Example: “Biodiversity project (4th ESO)”.</span>',
+        step3_callout_title: 'Multiple resources in one repository',
+        step3_callout_body: 'Different resources can be stored in the same repository, each in its own release with its tag, title, and description.',
+        step4_title: 'Upload the file (ZIP, ELPX or H5P)',
+        step4_li1: 'At the bottom of the release page, find the area <strong>Attach binaries by dropping them here or selecting them</strong>.',
+        step4_li2: 'Drag the file (ZIP, ELPX or H5P) onto that area, or click to select it.',
+        step4_li3: 'Wait for the upload to finish (it may take a while with large files).',
+        step4_li4: 'Click <strong>Publish release</strong>.',
+        step4_callout_title: 'Size limit',
+        step4_callout_body: 'GitHub allows up to <strong>2 GB per file</strong> in a release. Larger files need to be split.',
+        step5_title: 'Get the direct download URL',
+        step5_intro: 'Once the release is published, the uploaded file will appear in the <strong>Assets</strong> section. There are two ways to get the URL:',
+        step5_option_a: '<strong>Option A: copy the direct link</strong>',
+        step5_li1: 'Right-click the file name in Assets.',
+        step5_li2: 'Select “Copy link address”.',
+        step5_option_b: '<strong>Option B: use the stable URL with <code class="il">/latest/</code></strong> (recommended)',
+        step5_code_aria: 'Stable URL format',
+        step5_code_label: 'URL format (replace the orange parts)',
+        step5_callout_tip_title: 'Advantage of the /latest/ URL',
+        step5_callout_tip_body: 'It always points to the most recent version. You do not need to change the URL when a new version is published.',
+        step5_callout_warn_title: 'The file name matters',
+        step5_callout_warn_body: 'For the <code class="il">/latest/</code> URL to work correctly, the file must have the same name in each new release. If version 1.0 uploaded <code class="il">resource.elpx</code>, version 1.1 must also be named <code class="il">resource.elpx</code>.',
+        step6_title: 'What not to use',
+        step6_intro: 'In each release, two files appear automatically that are <strong>not</strong> the uploaded resource:',
+        step6_callout_title: 'Do not use these files',
+        step6_callout_body: '<em>Source code (zip)</em> and <em>Source code (tar.gz)</em> contain the repository source code, not the uploaded file. They should be ignored.',
+        step7_title: 'Update the file in the future',
+        step7_intro: 'To upload a new version of the resource:',
+        step7_li1: 'Go to <strong>Releases</strong> in the repository.',
+        step7_li2: 'Click <strong>Draft a new release</strong>.',
+        step7_li3: 'Create a new tag, e.g., <code class="il">v1.1</code>.',
+        step7_li4: 'Upload the new file <strong>with the same name</strong> as the previous one.',
+        step7_li5: 'Click <strong>Publish release</strong>.',
+        step7_callout_title: 'The URL does not change',
+        step7_callout_body: 'If you use the <code class="il">/latest/</code> link, the URL remains valid and automatically points to the most recently published version.',
+        result_title: 'Final result',
+        result_intro: 'With this procedure you get:',
+        result_li1: 'A GitHub repository that acts as a file container.',
+        result_li2: 'A hosting system for large files (up to 2 GB per file).',
+        result_li3: 'A public, direct, stable URL that always points to the latest version.',
+        result_li4: 'A version history with previous releases always accessible.',
+        result_outro: 'The whole process is done in the browser, without installing programs or using the terminal.',
+        footer_lab: 'Laboratory of educational applications',
+        footer_app: 'Application by Juan José de Haro',
+        footer_license: 'Creative Commons BY-SA License'
+      }
+    };
+
+    const LANG_KEY = 'languagePreference';
+    let currentLang = 'es';
+
+    function detectLanguage() {
+      const lang = (navigator.language || navigator.userLanguage || 'es').toLowerCase();
+      if (lang.startsWith('ca')) return 'ca';
+      if (lang.startsWith('en')) return 'en';
+      if (lang.startsWith('es')) return 'es';
+      return 'es';
+    }
+
+    function t(key) {
+      return (I18N[currentLang] && I18N[currentLang][key]) || I18N.es[key] || key;
+    }
+
+    function applyTranslations(lang) {
+      currentLang = I18N[lang] ? lang : 'es';
+      const dict = I18N[currentLang];
+
+      document.documentElement.setAttribute('lang', currentLang);
+
+      const titleEl = document.getElementById('pageTitle');
+      if (titleEl && dict.meta_title) titleEl.textContent = dict.meta_title;
+
+      const metaDesc = document.getElementById('metaDescription');
+      if (metaDesc && dict.meta_description) metaDesc.setAttribute('content', dict.meta_description);
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (dict[key]) el.textContent = dict[key];
+      });
+
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.dataset.i18nHtml;
+        if (dict[key]) el.innerHTML = dict[key];
+      });
+
+      document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+        const pairs = el.dataset.i18nAttr.split(',').map(p => p.trim()).filter(Boolean);
+        pairs.forEach(pair => {
+          const [attr, key] = pair.split(':').map(p => p.trim());
+          if (attr && key && dict[key]) el.setAttribute(attr, dict[key]);
+        });
+      });
+    }
+
+    function initLanguage() {
+      const select = document.getElementById('langSelect');
+      let saved = localStorage.getItem(LANG_KEY);
+      if (!saved || !I18N[saved]) {
+        saved = detectLanguage();
+        localStorage.setItem(LANG_KEY, saved);
+      }
+      if (select) {
+        select.value = saved;
+        select.addEventListener('change', () => {
+          localStorage.setItem(LANG_KEY, select.value);
+          applyTranslations(select.value);
+        });
+      }
+      applyTranslations(saved);
+    }
+
+    initLanguage();
+
+    /* ── Theme system ── */
+    (function () {
+      const KEY = 'themePreference';
+      const root = document.documentElement;
+      const sel = document.getElementById('themeSelect');
+
+      function apply(val) {
+        if (val === 'light' || val === 'dark') {
+          root.setAttribute('data-theme', val);
+        } else {
+          root.removeAttribute('data-theme');
+        }
+      }
+
+      function init() {
+        const saved = localStorage.getItem(KEY) || 'system';
+        sel.value = saved;
+        apply(saved);
+      }
+
+      sel.addEventListener('change', () => {
+        localStorage.setItem(KEY, sel.value);
+        apply(sel.value);
+      });
+
+      if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+          if ((localStorage.getItem(KEY) || 'system') === 'system') apply('system');
+        });
+      }
+
+      init();
+    })();
+
+    /* ── Copy URL template ── */
+    (function () {
+      const btn = document.getElementById('copyLatestBtn');
+      const tpl = 'https://github.com/USUARIO/REPO/releases/latest/download/archivo.ext';
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(tpl);
+          const span = btn.querySelector('.btn-text');
+          const old = span ? span.textContent : btn.textContent;
+          if (span) span.textContent = t('copy_done');
+          else btn.textContent = t('copy_done');
+          setTimeout(() => { if (span) span.textContent = old; else btn.textContent = old; }, 1500);
+        } catch {
+          window.prompt(t('copy_prompt'), tpl);
+        }
+      });
+    })();
+
+    /* ── Print ── */
+    document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+    /* ── Active TOC on scroll ── */
+    (function () {
+      const links = [...document.querySelectorAll('.toc-link')];
+      const targets = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+      function setActive(id) {
+        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+      }
+
+      const obs = new IntersectionObserver(entries => {
+        const hit = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (hit?.target?.id) setActive(hit.target.id);
+      }, { rootMargin: '-15% 0px -70% 0px', threshold: [0.05, 0.15, 0.3, 0.5] });
+
+      targets.forEach(t => obs.observe(t));
+    })();
+  </script>
+</body>
+</html>
