@@ -477,6 +477,63 @@
       color: #ffa657;
     }
 
+    /* ── URL Builder ── */
+    .url-builder {
+      margin: 12px 0 18px;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      background: var(--bg2);
+    }
+    .url-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+    .field span {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--card);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 13px;
+    }
+    .input:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .url-result {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .url-result .label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+    }
+    .url-output {
+      flex: 1 1 100%;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      background: var(--codebg);
+      color: var(--codetext);
+      border-radius: 8px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,.06);
+      word-break: break-all;
+    }
+    .btn.btn--small { padding: 6px 10px; font-size: 12px; }
+
     code.il {
       font-family: var(--mono);
       font-size: 0.9em;
@@ -708,6 +765,28 @@
             <span class="url-line">https://github.com/<span class="placeholder">USUARIO</span>/<span class="placeholder">REPO</span>/releases/latest/download/<span class="placeholder">archivo.ext</span></span>
           </div>
 
+          <div class="url-builder" aria-label="Generador de URL" data-i18n-attr="aria-label:builder_aria">
+            <div class="url-grid">
+              <label class="field">
+                <span data-i18n="builder_user_label">Usuario</span>
+                <input id="builderUser" class="input" type="text" autocomplete="off" spellcheck="false" placeholder="usuario" data-i18n-attr="placeholder:builder_user_placeholder">
+              </label>
+              <label class="field">
+                <span data-i18n="builder_repo_label">Repositorio</span>
+                <input id="builderRepo" class="input" type="text" autocomplete="off" spellcheck="false" placeholder="repositorio" data-i18n-attr="placeholder:builder_repo_placeholder">
+              </label>
+              <label class="field">
+                <span data-i18n="builder_file_label">Archivo</span>
+                <input id="builderFile" class="input" type="text" autocomplete="off" spellcheck="false" placeholder="archivo.zip" data-i18n-attr="placeholder:builder_file_placeholder">
+              </label>
+            </div>
+            <div class="url-result">
+              <span class="label" data-i18n="builder_result_label">URL generada</span>
+              <div id="builderOutput" class="url-output" aria-live="polite"></div>
+              <button class="btn btn--small" id="builderCopyBtn" type="button" data-i18n="builder_copy_btn">Copiar URL</button>
+            </div>
+          </div>
+
           <div class="callout callout--tip">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"/></svg>
             <div class="callout-body">
@@ -860,6 +939,18 @@
         step5_option_b: '<strong>Opción B: usar la URL estable con <code class="il">/latest/</code></strong> (recomendado)',
         step5_code_aria: 'Formato URL estable',
         step5_code_label: 'Formato de la URL (sustituir las partes en naranja)',
+        builder_aria: 'Generador de URL',
+        builder_user_label: 'Usuario',
+        builder_repo_label: 'Repositorio',
+        builder_file_label: 'Archivo',
+        builder_user_placeholder: 'usuario',
+        builder_repo_placeholder: 'repositorio',
+        builder_file_placeholder: 'archivo.zip',
+        builder_result_label: 'URL generada',
+        builder_copy_btn: 'Copiar URL',
+        builder_user_default: 'USUARIO',
+        builder_repo_default: 'REPO',
+        builder_file_default: 'archivo.ext',
         step5_callout_tip_title: 'Ventaja de la URL con /latest/',
         step5_callout_tip_body: 'Siempre apunta a la versión más reciente. No es necesario cambiar la URL cuando se publique una nueva versión del archivo.',
         step5_callout_warn_title: 'El nombre del archivo importa',
@@ -962,6 +1053,18 @@
         step5_option_b: '<strong>Opció B: usar la URL estable amb <code class="il">/latest/</code></strong> (recomanat)',
         step5_code_aria: 'Format d’URL estable',
         step5_code_label: 'Format de la URL (substitueix les parts en taronja)',
+        builder_aria: 'Generador d’URL',
+        builder_user_label: 'Usuari',
+        builder_repo_label: 'Repositori',
+        builder_file_label: 'Fitxer',
+        builder_user_placeholder: 'usuari',
+        builder_repo_placeholder: 'repositori',
+        builder_file_placeholder: 'fitxer.zip',
+        builder_result_label: 'URL generada',
+        builder_copy_btn: 'Copiar URL',
+        builder_user_default: 'USUARI',
+        builder_repo_default: 'REPO',
+        builder_file_default: 'fitxer.ext',
         step5_callout_tip_title: 'Avantatge de la URL amb /latest/',
         step5_callout_tip_body: 'Sempre apunta a la versió més recent. No cal canviar la URL quan es publiqui una nova versió del fitxer.',
         step5_callout_warn_title: 'El nom del fitxer importa',
@@ -1064,6 +1167,18 @@
         step5_option_b: '<strong>Option B: use the stable URL with <code class="il">/latest/</code></strong> (recommended)',
         step5_code_aria: 'Stable URL format',
         step5_code_label: 'URL format (replace the orange parts)',
+        builder_aria: 'URL builder',
+        builder_user_label: 'Username',
+        builder_repo_label: 'Repository',
+        builder_file_label: 'File',
+        builder_user_placeholder: 'username',
+        builder_repo_placeholder: 'repository',
+        builder_file_placeholder: 'file.zip',
+        builder_result_label: 'Generated URL',
+        builder_copy_btn: 'Copy URL',
+        builder_user_default: 'USER',
+        builder_repo_default: 'REPO',
+        builder_file_default: 'file.ext',
         step5_callout_tip_title: 'Advantage of the /latest/ URL',
         step5_callout_tip_body: 'It always points to the most recent version. You do not need to change the URL when a new version is published.',
         step5_callout_warn_title: 'The file name matters',
@@ -1096,6 +1211,7 @@
 
     const LANG_KEY = 'languagePreference';
     let currentLang = 'es';
+    let updateBuilder = null;
 
     function detectLanguage() {
       const lang = (navigator.language || navigator.userLanguage || 'es').toLowerCase();
@@ -1138,6 +1254,8 @@
           if (attr && key && dict[key]) el.setAttribute(attr, dict[key]);
         });
       });
+
+      if (typeof updateBuilder === 'function') updateBuilder();
     }
 
     function initLanguage() {
@@ -1158,6 +1276,48 @@
     }
 
     initLanguage();
+
+    /* ── URL Builder ── */
+    (function () {
+      const userEl = document.getElementById('builderUser');
+      const repoEl = document.getElementById('builderRepo');
+      const fileEl = document.getElementById('builderFile');
+      const outEl = document.getElementById('builderOutput');
+      const copyEl = document.getElementById('builderCopyBtn');
+
+      if (!userEl || !repoEl || !fileEl || !outEl || !copyEl) return;
+
+      const clean = (val) => (val || '').trim().replace(/^@+/, '');
+
+      function buildUrl() {
+        const user = clean(userEl.value) || t('builder_user_default');
+        const repo = clean(repoEl.value) || t('builder_repo_default');
+        const file = clean(fileEl.value) || t('builder_file_default');
+        outEl.textContent = `https://github.com/${user}/${repo}/releases/latest/download/${file}`;
+      }
+
+      updateBuilder = buildUrl;
+      ['input', 'change'].forEach(evt => {
+        userEl.addEventListener(evt, buildUrl);
+        repoEl.addEventListener(evt, buildUrl);
+        fileEl.addEventListener(evt, buildUrl);
+      });
+
+      copyEl.addEventListener('click', async () => {
+        const text = outEl.textContent.trim();
+        if (!text) return;
+        try {
+          await navigator.clipboard.writeText(text);
+          const old = copyEl.textContent;
+          copyEl.textContent = t('copy_done');
+          setTimeout(() => { copyEl.textContent = old; }, 1500);
+        } catch {
+          window.prompt(t('copy_prompt'), text);
+        }
+      });
+
+      buildUrl();
+    })();
 
     /* ── Theme system ── */
     (function () {
