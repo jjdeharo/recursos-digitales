@@ -742,6 +742,7 @@
           <a href="#subir-archivo" class="toc-link"><span class="toc-num">3</span> <span data-i18n="toc_upload_file">Subir el archivo</span></a>
           <a href="#url-descarga" class="toc-link"><span class="toc-num">4</span> <span data-i18n="toc_get_url">Obtener la URL directa</span></a>
           <a href="#actualizar" class="toc-link"><span class="toc-num">5</span> <span data-i18n="toc_update_file">Actualizar el archivo</span></a>
+          <a href="#publicar-compartir" class="toc-link"><span class="toc-num">6</span> <span data-i18n="toc_publish_share">Publicar y compartir</span></a>
           <a href="#resultado" class="toc-link"><span class="toc-num">✓</span> <span data-i18n="toc_result">Resultado final</span></a>
         </div>
       </nav>
@@ -890,6 +891,28 @@
           </div>
         </section>
 
+        <!-- Step 6 -->
+        <section id="publicar-compartir" class="section">
+          <h3 class="section-title"><span class="step-badge">6</span> <span data-i18n="step8_title">Publicar y compartir</span></h3>
+          <p data-i18n-html="step8_intro">Con la URL estable del paso 4, puedes compartir el recurso públicamente con <a href="https://visor-webzip.github.io" target="_blank" rel="noopener">Visor Web-ZIP</a> pegando esa dirección en el campo <strong>Crear enlace</strong>.</p>
+          <ol>
+            <li data-i18n-html="step8_li1">Abre <a href="https://visor-webzip.github.io" target="_blank" rel="noopener">visor-webzip.github.io</a>.</li>
+            <li data-i18n-html="step8_li2">En la zona <strong>② Crear enlace</strong>, pega la URL estable de GitHub (<code class="il"><span id="step8StableUrl">https://github.com/USUARIO/REPO/releases/latest/download/archivo.ext</span></code>).</li>
+            <li data-i18n-html="step8_li3">Pulsa <strong>Crear enlace</strong> y comparte el enlace generado con tu alumnado.</li>
+          </ol>
+
+          <div class="callout callout--tip">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"/></svg>
+            <div class="callout-body">
+              <strong data-i18n="step8_callout_title">Visor Web-ZIP</strong>
+              <span data-i18n-html="step8_callout_body">Más información: <a href="https://educacion.bilateria.org/visor-web-zip-publica-y-comparte-tus-recursos-educativos-desde-tu-almacenamiento-favorito-en-la-nube" target="_blank" rel="noopener">Visor Web-ZIP: Publica y comparte tus recursos educativos desde tu almacenamiento favorito en la nube</a>.</span>
+              <div style="margin-top:10px;">
+                <img src="./visor-webzip-logo.svg" alt="Logo de Visor Web-ZIP" width="64" height="64" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- Result -->
         <section id="resultado" class="section">
           <h3 class="section-title"><span class="step-badge final">✓</span> <span data-i18n="result_title">Resultado final</span></h3>
@@ -948,6 +971,7 @@
         toc_get_url: 'Obtener la URL directa',
         toc_what_not: 'Qué no se debe usar',
         toc_update_file: 'Actualizar el archivo',
+        toc_publish_share: 'Publicar y compartir',
         toc_result: 'Resultado final',
         toc_tip: 'Si se publican muchos recursos, se puede poner cada uno en una release diferente dentro del mismo repositorio.',
         article_label: 'Manual paso a paso',
@@ -1015,6 +1039,13 @@
         step7_li5: 'Pulsar <strong>Publish release</strong>.',
         step7_callout_title: 'La URL no cambia',
         step7_callout_body: 'Si se usa el enlace con <code class="il">/latest/</code>, la URL seguirá siendo válida y apuntará automáticamente a la última versión publicada.',
+        step8_title: 'Publicar y compartir',
+        step8_intro: 'Con la URL estable del paso 4, puedes compartir el recurso públicamente con <a href="https://visor-webzip.github.io" target="_blank" rel="noopener">Visor Web-ZIP</a> pegando esa dirección en el campo <strong>Crear enlace</strong>.',
+        step8_li1: 'Abre <a href="https://visor-webzip.github.io" target="_blank" rel="noopener">visor-webzip.github.io</a>.',
+        step8_li2: 'En la zona <strong>② Crear enlace</strong>, pega la URL estable de GitHub (<code class="il"><span id="step8StableUrl">https://github.com/USUARIO/REPO/releases/latest/download/archivo.ext</span></code>).',
+        step8_li3: 'Pulsa <strong>Crear enlace</strong> y comparte el enlace generado con tu alumnado.',
+        step8_callout_title: 'Visor Web-ZIP',
+        step8_callout_body: 'Más información: <a href="https://educacion.bilateria.org/visor-web-zip-publica-y-comparte-tus-recursos-educativos-desde-tu-almacenamiento-favorito-en-la-nube" target="_blank" rel="noopener">Visor Web-ZIP: Publica y comparte tus recursos educativos desde tu almacenamiento favorito en la nube</a>.',
         result_title: 'Resultado final',
         result_intro: 'Con este procedimiento se obtiene:',
         result_li1: 'Un repositorio en GitHub que actúa como contenedor de archivos.',
@@ -1058,6 +1089,7 @@
         toc_get_url: 'Obtenir la URL directa',
         toc_what_not: "Què no s'ha d'usar",
         toc_update_file: 'Actualitzar el fitxer',
+        toc_publish_share: 'Publicar i compartir',
         toc_result: 'Resultat final',
         toc_tip: 'Si es publiquen molts recursos, es pot posar cadascun en una release diferent dins del mateix repositori.',
         article_label: 'Manual pas a pas',
@@ -1125,6 +1157,13 @@
         step7_li5: 'Prémer <strong>Publish release</strong>.',
         step7_callout_title: 'La URL no canvia',
         step7_callout_body: 'Si s’utilitza l’enllaç amb <code class="il">/latest/</code>, la URL continuarà sent vàlida i apuntarà automàticament a l’última versió publicada.',
+        step8_title: 'Publicar i compartir',
+        step8_intro: 'Amb la URL estable del pas 4, pots compartir el recurs públicament amb <a href="https://visor-webzip.github.io" target="_blank" rel="noopener">Visor Web-ZIP</a> enganxant aquesta adreça al camp <strong>Crear enllaç</strong>.',
+        step8_li1: 'Obre <a href="https://visor-webzip.github.io" target="_blank" rel="noopener">visor-webzip.github.io</a>.',
+        step8_li2: 'A la zona <strong>② Crear enllaç</strong>, enganxa la URL estable de GitHub (<code class="il"><span id="step8StableUrl">https://github.com/USUARIO/REPO/releases/latest/download/archivo.ext</span></code>).',
+        step8_li3: 'Prem <strong>Crear enllaç</strong> i comparteix l’enllaç generat amb l’alumnat.',
+        step8_callout_title: 'Visor Web-ZIP',
+        step8_callout_body: 'Més informació: <a href="https://educacion.bilateria.org/visor-web-zip-publica-y-comparte-tus-recursos-educativos-desde-tu-almacenamiento-favorito-en-la-nube" target="_blank" rel="noopener">Visor Web-ZIP: Publica y comparte tus recursos educativos desde tu almacenamiento favorito en la nube</a>.',
         result_title: 'Resultat final',
         result_intro: 'Amb aquest procediment s’obté:',
         result_li1: 'Un repositori a GitHub que actua com a contenidor de fitxers.',
@@ -1168,6 +1207,7 @@
         toc_get_url: 'Get the direct URL',
         toc_what_not: 'What not to use',
         toc_update_file: 'Update the file',
+        toc_publish_share: 'Publish and share',
         toc_result: 'Final result',
         toc_tip: 'If many resources are published, each one can go in a different release within the same repository.',
         article_label: 'Step-by-step guide',
@@ -1235,6 +1275,13 @@
         step7_li5: 'Click <strong>Publish release</strong>.',
         step7_callout_title: 'The URL does not change',
         step7_callout_body: 'If you use the <code class="il">/latest/</code> link, the URL remains valid and automatically points to the most recently published version.',
+        step8_title: 'Publish and share',
+        step8_intro: 'With the stable URL from step 4, you can share the resource publicly with <a href="https://visor-webzip.github.io" target="_blank" rel="noopener">Visor Web-ZIP</a> by pasting that address into the <strong>Create link</strong> field.',
+        step8_li1: 'Open <a href="https://visor-webzip.github.io" target="_blank" rel="noopener">visor-webzip.github.io</a>.',
+        step8_li2: 'In the <strong>② Create link</strong> area, paste the stable GitHub URL (<code class="il"><span id="step8StableUrl">https://github.com/USUARIO/REPO/releases/latest/download/archivo.ext</span></code>).',
+        step8_li3: 'Click <strong>Create link</strong> and share the generated link with your students.',
+        step8_callout_title: 'Visor Web-ZIP',
+        step8_callout_body: 'More information: <a href="https://educacion.bilateria.org/visor-web-zip-publica-y-comparte-tus-recursos-educativos-desde-tu-almacenamiento-favorito-en-la-nube" target="_blank" rel="noopener">Visor Web-ZIP: Publica y comparte tus recursos educativos desde tu almacenamiento favorito en la nube</a>.',
         result_title: 'Final result',
         result_intro: 'With this procedure you get:',
         result_li1: 'A GitHub repository that acts as a file container.',
@@ -1329,10 +1376,20 @@
       const clean = (val) => (val || '').trim().replace(/^@+/, '');
 
       function buildUrl() {
-        const user = clean(userEl.value) || t('builder_user_default');
-        const repo = clean(repoEl.value) || t('builder_repo_default');
-        const file = clean(fileEl.value) || t('builder_file_default');
-        outEl.textContent = `https://github.com/${user}/${repo}/releases/latest/download/${file}`;
+        const rawUser = clean(userEl.value);
+        const rawRepo = clean(repoEl.value);
+        const rawFile = clean(fileEl.value);
+        const user = rawUser || t('builder_user_default');
+        const repo = rawRepo || t('builder_repo_default');
+        const file = rawFile || t('builder_file_default');
+        const builtUrl = `https://github.com/${user}/${repo}/releases/latest/download/${file}`;
+        outEl.textContent = builtUrl;
+
+        const step8StableUrlEl = document.getElementById('step8StableUrl');
+        if (step8StableUrlEl) {
+          const hasUserUrl = Boolean(rawUser && rawRepo && rawFile);
+          step8StableUrlEl.textContent = hasUserUrl ? builtUrl : 'https://github.com/USUARIO/REPO/releases/latest/download/archivo.ext';
+        }
       }
 
       function loadBuilderState() {
