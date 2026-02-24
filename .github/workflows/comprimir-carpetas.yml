@@ -1,0 +1,36 @@
+name: Comprimir carpetas en ZIP
+
+on:
+  push:
+    tags:
+      - 'v*' # Se activa al subir una etiqueta como v1.0, v2.1, etc.
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Comprimir cada carpeta
+        run: |
+          # Recorrer todos los directorios en la raíz (excluyendo .github y .git)
+          for dir in */; do
+            # Quitar la barra diagonal final del nombre
+            folder_name=${dir%/}
+            
+            # Ignorar carpetas ocultas o de configuración
+            if [[ "$folder_name" != ".github" && "$folder_name" != ".git" ]]; then
+              echo "Comprimiendo $folder_name..."
+              zip -r "${folder_name}.zip" "$folder_name"
+            fi
+          done
+
+      - name: Crear Release y subir archivos ZIP
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "*.zip" # Sube todos los archivos .zip generados
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
