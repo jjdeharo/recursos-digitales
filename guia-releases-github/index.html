@@ -430,6 +430,8 @@
     .callout svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
     .callout-body { flex: 1; }
     .callout-body strong { display: block; margin-bottom: 4px; }
+    .one-line { white-space: nowrap; }
+    .one-line strong { display: inline; margin: 0; }
 
     .callout--info {
       background: var(--accent-soft);
@@ -739,8 +741,7 @@
           <a href="#crear-release" class="toc-link"><span class="toc-num">2</span> <span data-i18n="toc_create_release">Crear una release</span></a>
           <a href="#subir-archivo" class="toc-link"><span class="toc-num">3</span> <span data-i18n="toc_upload_file">Subir el archivo</span></a>
           <a href="#url-descarga" class="toc-link"><span class="toc-num">4</span> <span data-i18n="toc_get_url">Obtener la URL directa</span></a>
-          <a href="#no-usar" class="toc-link"><span class="toc-num">5</span> <span data-i18n="toc_what_not">Qué no se debe usar</span></a>
-          <a href="#actualizar" class="toc-link"><span class="toc-num">6</span> <span data-i18n="toc_update_file">Actualizar el archivo</span></a>
+          <a href="#actualizar" class="toc-link"><span class="toc-num">5</span> <span data-i18n="toc_update_file">Actualizar el archivo</span></a>
           <a href="#resultado" class="toc-link"><span class="toc-num">✓</span> <span data-i18n="toc_result">Resultado final</span></a>
         </div>
       </nav>
@@ -786,8 +787,8 @@
           <div class="callout callout--tip">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"/></svg>
             <div class="callout-body">
-              <strong data-i18n="step3_callout_title">Varios recursos en un mismo repositorio</strong>
-              <span data-i18n-html="step3_callout_body">Se pueden guardar recursos diferentes dentro del mismo repositorio, cada uno en su propia release con su etiqueta, título y descripción.</span>
+              <strong data-i18n="step3_callout_title">Recomendación: un recurso por repositorio</strong>
+              <span data-i18n-html="step3_callout_body">Para mantener URL estables con <code class="il">/latest/</code>, lo más seguro es usar un único recurso/archivo por repositorio.</span>
             </div>
           </div>
         </section>
@@ -806,7 +807,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>
             <div class="callout-body">
               <strong data-i18n="step4_callout_title">Límite de tamaño</strong>
-              <span data-i18n-html="step4_callout_body">GitHub permite hasta <strong>2 GB por archivo</strong> en una release.</span>
+              <span class="one-line" data-i18n-html="step4_callout_body">GitHub permite hasta <strong>2 GB por archivo</strong> en una release.</span>
             </div>
           </div>
         </section>
@@ -858,12 +859,6 @@
               <span data-i18n-html="step5_callout_warn_body">Para que la URL con <code class="il">/latest/</code> funcione correctamente, el archivo debe llamarse igual en cada nueva release. Si en la versión 1.0 se subió <code class="il">recurso.elpx</code>, en la 1.1 también debe llamarse <code class="il">recurso.elpx</code>.</span>
             </div>
           </div>
-        </section>
-
-        <!-- Step 6 -->
-        <section id="no-usar" class="section">
-          <h3 class="section-title"><span class="step-badge">5</span> <span data-i18n="step6_title">Qué no se debe usar</span></h3>
-          <p data-i18n-html="step6_intro">En cada release aparecen automáticamente dos archivos que <strong>no</strong> son el recurso subido:</p>
 
           <div class="callout callout--danger">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>
@@ -874,9 +869,9 @@
           </div>
         </section>
 
-        <!-- Step 7 -->
+        <!-- Step 5 -->
         <section id="actualizar" class="section">
-          <h3 class="section-title"><span class="step-badge">6</span> <span data-i18n="step7_title">Actualizar el archivo en el futuro</span></h3>
+          <h3 class="section-title"><span class="step-badge">5</span> <span data-i18n="step7_title">Actualizar el archivo en el futuro</span></h3>
           <p data-i18n="step7_intro">Para subir una versión nueva del recurso:</p>
           <ol>
             <li data-i18n-html="step7_li1">Ir a <strong>Releases</strong> en el repositorio.</li>
@@ -978,8 +973,8 @@
         step3_li2: 'Pulsar <strong>Draft a new release</strong>.',
         step3_li3: 'En <strong>Choose a tag</strong>, escribir una etiqueta de versión, por ejemplo: <code class="il">v1.0</code>. Seleccionar <strong>Create new tag</strong> cuando aparezca.',
         step3_li4: 'En <strong>Release title</strong> poner el título del recurso.<br><span style="color:var(--muted);font-size:13px;">Ejemplo: «Proyecto biodiversidad 4º ESO».</span>',
-        step3_callout_title: 'Varios recursos en un mismo repositorio',
-        step3_callout_body: 'Se pueden guardar recursos diferentes dentro del mismo repositorio, cada uno en su propia release con su etiqueta, título y descripción.',
+        step3_callout_title: 'Recomendación: un recurso por repositorio',
+        step3_callout_body: 'Para mantener URL estables con <code class="il">/latest/</code>, lo más seguro es usar un único recurso/archivo por repositorio.',
         step4_title: 'Subir el archivo (ZIP, ELPX o H5P)',
         step4_li1: 'En la zona inferior de la release, localizar el área <strong>Attach binaries by dropping them here or selecting them</strong>.',
         step4_li2: 'Arrastrar el archivo (ZIP, ELPX o H5P) sobre esa zona, o hacer clic para seleccionarlo.',
@@ -1089,8 +1084,8 @@
         step3_li2: 'Prémer <strong>Draft a new release</strong>.',
         step3_li3: 'A <strong>Choose a tag</strong>, escriure una etiqueta de versió, per exemple: <code class="il">v1.0</code>. Seleccionar <strong>Create new tag</strong> quan aparegui.',
         step3_li4: 'A <strong>Release title</strong> posar el títol del recurs.<br><span style="color:var(--muted);font-size:13px;">Exemple: «Projecte biodiversitat 4t d’ESO».</span>',
-        step3_callout_title: 'Diversos recursos en un mateix repositori',
-        step3_callout_body: 'Es poden desar recursos diferents dins del mateix repositori, cadascun en la seva pròpia release amb la seva etiqueta, títol i descripció.',
+        step3_callout_title: 'Recomanació: un recurs per repositori',
+        step3_callout_body: 'Per mantenir URL estables amb <code class="il">/latest/</code>, el més segur és fer servir un únic recurs/fitxer per repositori.',
         step4_title: 'Pujar el fitxer (ZIP, ELPX o H5P)',
         step4_li1: 'A la zona inferior de la release, localitzar l’àrea <strong>Attach binaries by dropping them here or selecting them</strong>.',
         step4_li2: 'Arrossegar el fitxer (ZIP, ELPX o H5P) sobre aquesta zona, o fer clic per seleccionar-lo.',
@@ -1200,8 +1195,8 @@
         step3_li2: 'Click <strong>Draft a new release</strong>.',
         step3_li3: 'In <strong>Choose a tag</strong>, type a version tag, e.g., <code class="il">v1.0</code>. Select <strong>Create new tag</strong> when it appears.',
         step3_li4: 'In <strong>Release title</strong> enter the resource title.<br><span style="color:var(--muted);font-size:13px;">Example: “Biodiversity project (4th ESO)”.</span>',
-        step3_callout_title: 'Multiple resources in one repository',
-        step3_callout_body: 'Different resources can be stored in the same repository, each in its own release with its tag, title, and description.',
+        step3_callout_title: 'Recommendation: one resource per repository',
+        step3_callout_body: 'To keep stable URLs with <code class="il">/latest/</code>, the safest option is to use one single resource/file per repository.',
         step4_title: 'Upload the file (ZIP, ELPX or H5P)',
         step4_li1: 'At the bottom of the release page, find the area <strong>Attach binaries by dropping them here or selecting them</strong>.',
         step4_li2: 'Drag the file (ZIP, ELPX or H5P) onto that area, or click to select it.',
@@ -1326,6 +1321,7 @@
 
     /* ── URL Builder ── */
     (function () {
+      const BUILDER_KEY = 'releaseUrlBuilder';
       const userEl = document.getElementById('builderUser');
       const repoEl = document.getElementById('builderRepo');
       const fileEl = document.getElementById('builderFile');
@@ -1343,11 +1339,37 @@
         outEl.textContent = `https://github.com/${user}/${repo}/releases/latest/download/${file}`;
       }
 
+      function loadBuilderState() {
+        try {
+          const raw = localStorage.getItem(BUILDER_KEY);
+          if (!raw) return;
+          const parsed = JSON.parse(raw);
+          if (!parsed || typeof parsed !== 'object') return;
+          userEl.value = typeof parsed.user === 'string' ? parsed.user : '';
+          repoEl.value = typeof parsed.repo === 'string' ? parsed.repo : '';
+          fileEl.value = typeof parsed.file === 'string' ? parsed.file : '';
+        } catch {
+          // Ignore malformed storage or blocked access.
+        }
+      }
+
+      function saveBuilderState() {
+        try {
+          localStorage.setItem(BUILDER_KEY, JSON.stringify({
+            user: userEl.value,
+            repo: repoEl.value,
+            file: fileEl.value
+          }));
+        } catch {
+          // Ignore storage failures.
+        }
+      }
+
       updateBuilder = buildUrl;
       ['input', 'change'].forEach(evt => {
-        userEl.addEventListener(evt, buildUrl);
-        repoEl.addEventListener(evt, buildUrl);
-        fileEl.addEventListener(evt, buildUrl);
+        userEl.addEventListener(evt, () => { saveBuilderState(); buildUrl(); });
+        repoEl.addEventListener(evt, () => { saveBuilderState(); buildUrl(); });
+        fileEl.addEventListener(evt, () => { saveBuilderState(); buildUrl(); });
       });
 
       copyEl.addEventListener('click', async () => {
@@ -1363,6 +1385,7 @@
         }
       });
 
+      loadBuilderState();
       buildUrl();
     })();
 
