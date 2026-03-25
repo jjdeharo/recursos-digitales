@@ -33,10 +33,15 @@ jobs:
         with:
           enablement: true
 
+      - name: Prepare artifact with nested path
+        run: |
+          mkdir -p _site/manual-exe
+          cp -a manual-exe/manual-of-exelearning-301_web _site/manual-exe/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: manual-exe/manual-of-exelearning-301_web
+          path: _site
 
       - name: Deploy to GitHub Pages
         id: deployment
