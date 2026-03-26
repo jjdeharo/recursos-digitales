@@ -776,3 +776,6 @@ html:not(.mode-teacher) .js .teacher-only {
 .exe-math-rendered svg rect[data-frame="true"] { fill: none; stroke-width: 60 !important; }
 /* Hide MathML visually but keep accessible for screen readers */
 .exe-math-rendered math { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+/* Pre-rendered Mermaid (static SVG) - Mermaid library not included */
+.exe-mermaid-rendered { display: block; text-align: center; margin: 1.5em 0; }
+.exe-mermaid-rendered svg { max-width: 100%; height: auto; }
