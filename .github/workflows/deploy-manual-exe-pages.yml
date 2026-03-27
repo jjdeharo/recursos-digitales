@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "manual-exe/manual-of-exelearning-301_web/**"
+      - "manual-exe/exelearning-301-manual_web/**"
       - ".github/workflows/deploy-manual-exe-pages.yml"
   workflow_dispatch:
 
@@ -36,7 +36,7 @@ jobs:
       - name: Prepare artifact with nested path
         run: |
           mkdir -p _site/manual-exe
-          cp -a manual-exe/manual-of-exelearning-301_web _site/manual-exe/
+          cp -a manual-exe/exelearning-301-manual_web _site/manual-exe/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
